@@ -1,437 +1,520 @@
-import Navbar from "@/components/navbar";
+"use client";
+
+import { motion } from "framer-motion";
 import {
-  FadeUp,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/motion-wrapper";
+  BarChart3,
+  Target,
+  Layers,
+  ShoppingCart,
+  Zap,
+  LineChart,
+  ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
 
-/* ─── DATA ─── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
-const heroMetrics = [
-  { value: "8.4x", label: "Avg ROAS" },
-  { value: "₹4.2Cr", label: "Ad Spend Managed" },
-  { value: "62%", label: "CPL Reduction" },
-  { value: "40+", label: "Funnels Built" },
-];
-
-const services = [
-  {
-    title: "Paid Advertising",
-    desc: "High-performance Meta, Google & YouTube ad campaigns engineered for ROAS, not vanity metrics.",
-    icon: "📈",
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
   },
-  {
-    title: "Tracking & Attribution",
-    desc: "Server-side tagging, CAPI, GA4 event architecture — so every rupee is accounted for.",
-    icon: "🎯",
-  },
-  {
-    title: "Funnel Architecture",
-    desc: "End-to-end conversion funnels — landing pages, upsells, order bumps — built for scale.",
-    icon: "🔧",
-  },
-  {
-    title: "Shopify Tracking",
-    desc: "Pixel-perfect Shopify tracking setups with server-side events, UTM flows, and purchase attribution.",
-    icon: "🛒",
-  },
-  {
-    title: "Automation & Workflows",
-    desc: "Zapier, Make, and custom webhook workflows that eliminate manual work and reduce response time.",
-    icon: "⚡",
-  },
-  {
-    title: "Analytics & Dashboards",
-    desc: "Custom Looker Studio & GA4 dashboards that give you clarity on what's actually driving revenue.",
-    icon: "📊",
-  },
-];
-
-const results = [
-  { value: "8.4x", label: "Average ROAS", sub: "across all client accounts" },
-  { value: "62%", label: "CPL Reduction", sub: "within the first 60 days" },
-  {
-    value: "3.1x",
-    label: "Conversion Lift",
-    sub: "after funnel architecture overhaul",
-  },
-  {
-    value: "₹4.2Cr",
-    label: "Ad Spend Managed",
-    sub: "profitably across Meta & Google",
-  },
-];
-
-const caseStudies = [
-  {
-    title: "D2C Skincare Brand",
-    desc: "Scaled a Shopify D2C brand from ₹2L/mo to ₹18L/mo in ad spend while improving ROAS from 1.8x to 6.2x through funnel restructuring and server-side tracking.",
-    before: [
-      { label: "ROAS", value: "1.8x" },
-      { label: "Monthly Spend", value: "₹2L" },
-      { label: "CPL", value: "₹420" },
-    ],
-    after: [
-      { label: "ROAS", value: "6.2x" },
-      { label: "Monthly Spend", value: "₹18L" },
-      { label: "CPL", value: "₹160" },
-    ],
-  },
-  {
-    title: "EdTech Lead Gen",
-    desc: "Rebuilt the entire tracking and funnel stack for an EdTech company, cutting CPL by 58% and tripling qualified leads through better attribution and creative testing.",
-    before: [
-      { label: "CPL", value: "₹680" },
-      { label: "Qualified Leads/mo", value: "120" },
-      { label: "Conversion Rate", value: "2.1%" },
-    ],
-    after: [
-      { label: "CPL", value: "₹285" },
-      { label: "Qualified Leads/mo", value: "380" },
-      { label: "Conversion Rate", value: "5.8%" },
-    ],
-  },
-];
-
-const processSteps = [
-  {
-    step: "01",
-    title: "Audit",
-    desc: "Deep-dive into your ad accounts, tracking, funnels, and analytics to identify leaks and quick wins.",
-  },
-  {
-    step: "02",
-    title: "Architecture",
-    desc: "Design the conversion system — tracking stack, funnel flow, campaign structure, and attribution model.",
-  },
-  {
-    step: "03",
-    title: "Launch",
-    desc: "Deploy campaigns, implement tracking, build funnels, and start driving qualified traffic.",
-  },
-  {
-    step: "04",
-    title: "Scale",
-    desc: "Optimize based on real data. Scale spend on winners, kill losers, and compound growth week over week.",
-  },
-];
-
-/* ─── GLASS CARD UTILITY ─── */
-const glass =
-  "rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl";
-const glassHover =
-  "hover:border-white/[0.15] hover:bg-white/[0.06] transition-all duration-300";
-
-/* ─── PAGE ─── */
+};
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
+    <main className="relative min-h-screen overflow-hidden bg-[#FAF8F5]">
+      {/* Floating Gradient Orbs */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div
+          className="gradient-orb absolute -top-[20%] -left-[10%] h-[600px] w-[600px]"
+          style={{ "--orb-color": "#FF9F50" } as React.CSSProperties}
+        />
+        <div
+          className="gradient-orb absolute top-[40%] -right-[15%] h-[500px] w-[500px]"
+          style={{ "--orb-color": "#4A90FF" } as React.CSSProperties}
+        />
+        <div
+          className="gradient-orb absolute -bottom-[10%] left-[20%] h-[400px] w-[400px]"
+          style={{ "--orb-color": "#FFD93D" } as React.CSSProperties}
+        />
+      </div>
 
-      {/* ━━━ HERO ━━━ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 px-6">
-        {/* Ambient glow */}
-        <div className="pointer-events-none absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-gradient-to-br from-[#4F9EFF]/20 to-[#8B5CF6]/20 blur-[120px]" />
-
-        <div className="relative z-10 mx-auto max-w-5xl text-center">
-          <FadeUp>
-            <span className="inline-block mb-6 rounded-full border border-white/[0.1] bg-white/[0.05] px-4 py-1.5 text-xs font-medium tracking-wide text-[#94A3B8] uppercase">
-              Performance Marketing & Conversion Systems
-            </span>
-          </FadeUp>
-
-          <FadeUp delay={0.1}>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.1] tracking-tight">
-              I Build{" "}
-              <span className="bg-gradient-to-r from-[#4F9EFF] to-[#8B5CF6] bg-clip-text text-transparent">
-                Conversion Systems
-              </span>{" "}
-              That Scale
-            </h1>
-          </FadeUp>
-
-          <FadeUp delay={0.2}>
-            <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-[#94A3B8] leading-relaxed">
-              From paid ads and server-side tracking to high-converting funnels
-              and automation — I architect the entire performance marketing stack
-              so you can scale profitably.
-            </p>
-          </FadeUp>
-
-          <FadeUp delay={0.3}>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#book"
-                className="inline-flex items-center rounded-full bg-gradient-to-r from-[#4F9EFF] to-[#8B5CF6] px-8 py-3.5 text-sm font-semibold text-white shadow-[0_0_32px_rgba(79,158,255,0.3)] hover:shadow-[0_0_48px_rgba(79,158,255,0.5)] hover:scale-105 transition-all"
+      {/* Navbar */}
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-50 mx-auto max-w-7xl px-6 py-6"
+      >
+        <div className="flex items-center justify-between rounded-2xl bg-white/70 px-6 py-4 backdrop-blur-xl border border-white/60 soft-shadow">
+          <Link href="/" className="font-heading text-xl font-bold text-[#0F1629]">
+            Vyzantmedia
+          </Link>
+          <div className="hidden items-center gap-8 md:flex">
+            {["Services", "Results", "Case Studies", "Process"].map((item) => (
+              <Link
+                key={item}
+                href={`#${item.toLowerCase().replace(" ", "-")}`}
+                className="text-sm font-medium text-[#0F1629]/70 transition-colors hover:text-[#0F1629]"
               >
-                Book a Free Audit
-              </a>
-              <a
-                href="#case-studies"
-                className="inline-flex items-center rounded-full border border-white/[0.1] bg-white/[0.05] px-8 py-3.5 text-sm font-medium text-white hover:bg-white/[0.1] transition-all"
-              >
-                See Case Studies
-              </a>
-            </div>
-          </FadeUp>
+                {item}
+              </Link>
+            ))}
+          </div>
+          <button className="rounded-full bg-[#0F1629] px-6 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-105">
+            Book a Call
+          </button>
+        </div>
+      </motion.nav>
 
-          {/* Metrics row */}
-          <FadeUp delay={0.45}>
-            <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4">
-              {heroMetrics.map((m) => (
-                <div
-                  key={m.label}
-                  className={`${glass} px-6 py-5 text-center`}
-                >
-                  <p className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#4F9EFF] to-[#8B5CF6] bg-clip-text text-transparent">
-                    {m.value}
-                  </p>
-                  <p className="mt-1 text-xs text-[#94A3B8] uppercase tracking-wider">
-                    {m.label}
-                  </p>
+      {/* Hero */}
+      <section className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-24 md:pt-24 md:pb-32">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="mx-auto max-w-4xl text-center"
+        >
+          <motion.div variants={fadeUp} custom={0} className="mb-6 flex justify-center gap-3">
+            <span className="pill pill-coral">Performance Marketing</span>
+            <span className="pill pill-blue">Conversion Focused</span>
+          </motion.div>
+
+          <motion.h1
+            variants={fadeUp}
+            custom={1}
+            className="font-heading text-5xl font-bold leading-[1.1] tracking-tight text-[#0F1629] md:text-7xl lg:text-8xl"
+          >
+            I Build{" "}
+            <span className="gradient-text">Conversion Systems</span>
+            <br />
+            That Scale
+          </motion.h1>
+
+          <motion.p
+            variants={fadeUp}
+            custom={2}
+            className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-[#0F1629]/60 md:text-xl"
+          >
+            End-to-end performance marketing for D2C brands and SaaS. Paid ads,
+            tracking infrastructure, funnel architecture, and automation that
+            turns ad spend into predictable revenue.
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            custom={3}
+            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
+            <button className="group flex items-center gap-2 rounded-full bg-[#FF7F50] px-8 py-4 text-base font-semibold text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-orange-200">
+              Book a Free Audit
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
+            <button className="rounded-full border-2 border-[#0F1629]/10 bg-white/80 px-8 py-4 text-base font-semibold text-[#0F1629] backdrop-blur-sm transition-all hover:border-[#0F1629]/20 hover:bg-white">
+              View Case Studies
+            </button>
+          </motion.div>
+
+          {/* Metrics Row */}
+          <motion.div
+            variants={fadeUp}
+            custom={4}
+            className="mx-auto mt-20 grid max-w-3xl grid-cols-2 gap-4 md:grid-cols-4"
+          >
+            {[
+              { label: "Avg. ROAS", value: "8.4x", color: "pill-coral" },
+              { label: "Ad Spend Managed", value: "₹4.2Cr", color: "pill-blue" },
+              { label: "CPL Reduced", value: "62%", color: "pill-yellow" },
+              { label: "Funnels Built", value: "120+", color: "pill-green" },
+            ].map((metric) => (
+              <div
+                key={metric.label}
+                className="glass-card rounded-2xl p-5 text-center"
+              >
+                <div className={`pill ${metric.color} mb-2 mx-auto w-fit text-xs`}>
+                  {metric.label}
                 </div>
+                <div className="font-heading text-2xl font-bold text-[#0F1629] md:text-3xl">
+                  {metric.value}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Services */}
+      <section id="services" className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeUp} custom={0} className="mb-16 text-center">
+            <span className="pill pill-coral mb-4 inline-block">What We Do</span>
+            <h2 className="font-heading text-4xl font-bold text-[#0F1629] md:text-5xl">
+              Services Built for Scale
+            </h2>
+          </motion.div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: Target,
+                title: "Paid Advertising",
+                desc: "Meta, Google, and LinkedIn campaigns with creative testing frameworks and budget optimization.",
+                color: "bg-[#FFF0EB] text-[#E85D3E]",
+                pill: "pill-coral",
+              },
+              {
+                icon: BarChart3,
+                title: "Tracking & Attribution",
+                desc: "Server-side GTM, pixel implementation, and multi-touch attribution models that actually work.",
+                color: "bg-[#EBF2FF] text-[#4A90FF]",
+                pill: "pill-blue",
+              },
+              {
+                icon: Layers,
+                title: "Funnel Architecture",
+                desc: "High-converting landing pages, upsell flows, and checkout optimization for maximum AOV.",
+                color: "bg-[#F3E8FF] text-[#7C3AED]",
+                pill: "pill-purple",
+              },
+              {
+                icon: ShoppingCart,
+                title: "Shopify Tracking",
+                desc: "Complete ecommerce analytics setup — from pixel firing to custom event tracking and LTV analysis.",
+                color: "bg-[#E8F5E9] text-[#2E7D32]",
+                pill: "pill-green",
+              },
+              {
+                icon: Zap,
+                title: "Automation & Workflows",
+                desc: "Email sequences, CRM automations, and lead nurturing systems that convert while you sleep.",
+                color: "bg-[#FFF8E6] text-[#D4A017]",
+                pill: "pill-yellow",
+              },
+              {
+                icon: LineChart,
+                title: "Analytics & Dashboards",
+                desc: "Custom Looker Studio dashboards and real-time reporting so you always know your numbers.",
+                color: "bg-[#E0F7FA] text-[#00838F]",
+                pill: "pill-teal",
+              },
+            ].map((service, i) => (
+              <motion.div
+                key={service.title}
+                variants={fadeUp}
+                custom={i + 1}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="group glass-card rounded-3xl p-8 transition-shadow hover:shadow-xl"
+              >
+                <div
+                  className={`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${service.color}`}
+                >
+                  <service.icon className="h-6 w-6" />
+                </div>
+                <span className={`pill ${service.pill} mb-3 text-xs`}>
+                  0{i + 1}
+                </span>
+                <h3 className="font-heading mt-3 text-xl font-bold text-[#0F1629]">
+                  {service.title}
+                </h3>
+                <p className="mt-3 text-[#0F1629]/60 leading-relaxed">
+                  {service.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Results */}
+      <section id="results" className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="rounded-[2.5rem] bg-[#0F1629] p-10 md:p-16 relative overflow-hidden"
+        >
+          <div
+            className="gradient-orb absolute top-0 right-0 h-[400px] w-[400px] opacity-30"
+            style={{ "--orb-color": "#FF7F50" } as React.CSSProperties}
+          />
+          <div
+            className="gradient-orb absolute bottom-0 left-0 h-[300px] w-[300px] opacity-20"
+            style={{ "--orb-color": "#4A90FF" } as React.CSSProperties}
+          />
+
+          <div className="relative z-10">
+            <motion.div variants={fadeUp} custom={0} className="mb-14 text-center">
+              <span className="pill bg-white/10 text-white/80 mb-4 inline-block">
+                Track Record
+              </span>
+              <h2 className="font-heading text-4xl font-bold text-white md:text-5xl">
+                Numbers That Speak
+              </h2>
+            </motion.div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { value: "8.4x", label: "Average ROAS", sub: "Across all client accounts" },
+                { value: "62%", label: "CPL Reduction", sub: "Within first 60 days" },
+                { value: "3.1x", label: "Conversion Lift", sub: "Post funnel optimization" },
+                { value: "₹4.2Cr", label: "Ad Spend Managed", sub: "In the last 12 months" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  variants={fadeUp}
+                  custom={i + 1}
+                  className="rounded-2xl bg-white/5 p-8 text-center backdrop-blur-sm border border-white/10"
+                >
+                  <div className="font-heading text-5xl font-bold text-white md:text-6xl">
+                    {stat.value}
+                  </div>
+                  <div className="mt-3 text-lg font-semibold text-white/90">
+                    {stat.label}
+                  </div>
+                  <div className="mt-1 text-sm text-white/50">{stat.sub}</div>
+                </motion.div>
               ))}
             </div>
-          </FadeUp>
-        </div>
+          </div>
+        </motion.div>
       </section>
 
-      {/* ━━━ SERVICES ━━━ */}
-      <section id="services" className="py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <FadeUp>
-            <p className="text-center text-xs font-medium tracking-widest uppercase text-[#4F9EFF] mb-3">
-              What I Do
-            </p>
-            <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold">
-              Services
+      {/* Case Studies */}
+      <section id="case-studies" className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeUp} custom={0} className="mb-16 text-center">
+            <span className="pill pill-blue mb-4 inline-block">Case Studies</span>
+            <h2 className="font-heading text-4xl font-bold text-[#0F1629] md:text-5xl">
+              Before &amp; After
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-center text-[#94A3B8]">
-              End-to-end performance marketing infrastructure — from the first
-              click to the final conversion.
-            </p>
-          </FadeUp>
+          </motion.div>
 
-          <StaggerContainer className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => (
-              <StaggerItem key={s.title}>
-                <div
-                  className={`${glass} ${glassHover} group p-7 h-full flex flex-col`}
-                >
-                  <span className="text-3xl mb-4 block">{s.icon}</span>
-                  <h3 className="text-lg font-semibold text-white group-hover:text-[#4F9EFF] transition-colors">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-[#94A3B8] leading-relaxed">
-                    {s.desc}
-                  </p>
+          <div className="grid gap-8 md:grid-cols-2">
+            {[
+              {
+                client: "D2C Skincare Brand",
+                industry: "Beauty & Personal Care",
+                before: { roas: "1.8x", cpl: "₹420", spend: "₹80K/mo" },
+                after: { roas: "6.2x", cpl: "₹145", spend: "₹3.2L/mo" },
+                tags: ["Meta Ads", "Server-Side Tracking", "Funnel Rebuild"],
+              },
+              {
+                client: "EdTech Lead Gen",
+                industry: "Education & SaaS",
+                before: { roas: "2.1x", cpl: "₹680", spend: "₹1.5L/mo" },
+                after: { roas: "5.4x", cpl: "₹285", spend: "₹6L/mo" },
+                tags: ["Google Ads", "Attribution Setup", "CRM Automation"],
+              },
+            ].map((study, i) => (
+              <motion.div
+                key={study.client}
+                variants={fadeUp}
+                custom={i + 1}
+                className="glass-card rounded-3xl p-8"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="pill pill-purple text-xs">{study.industry}</span>
                 </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
+                <h3 className="font-heading text-2xl font-bold text-[#0F1629]">
+                  {study.client}
+                </h3>
 
-      {/* ━━━ RESULTS ━━━ */}
-      <section id="results" className="py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <FadeUp>
-            <p className="text-center text-xs font-medium tracking-widest uppercase text-[#8B5CF6] mb-3">
-              The Numbers
-            </p>
-            <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold">
-              Results That Speak
-            </h2>
-          </FadeUp>
-
-          <StaggerContainer className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {results.map((r) => (
-              <StaggerItem key={r.label}>
-                <div
-                  className={`${glass} ${glassHover} relative overflow-hidden p-7 text-center`}
-                >
-                  {/* Ambient glow */}
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-32 h-32 rounded-full bg-gradient-to-br from-[#4F9EFF]/20 to-[#8B5CF6]/20 blur-[60px] pointer-events-none" />
-                  <p className="relative text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-[#4F9EFF] to-[#8B5CF6] bg-clip-text text-transparent">
-                    {r.value}
-                  </p>
-                  <p className="relative mt-2 text-sm font-semibold text-white">
-                    {r.label}
-                  </p>
-                  <p className="relative mt-1 text-xs text-[#94A3B8]">
-                    {r.sub}
-                  </p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* ━━━ CASE STUDIES ━━━ */}
-      <section id="case-studies" className="py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <FadeUp>
-            <p className="text-center text-xs font-medium tracking-widest uppercase text-[#4F9EFF] mb-3">
-              Proof of Work
-            </p>
-            <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold">
-              Case Studies
-            </h2>
-          </FadeUp>
-
-          <div className="mt-16 grid gap-8 lg:grid-cols-2">
-            {caseStudies.map((cs, i) => (
-              <FadeUp key={cs.title} delay={i * 0.15}>
-                <div className={`${glass} ${glassHover} p-8`}>
-                  <h3 className="text-xl font-bold text-white">{cs.title}</h3>
-                  <p className="mt-3 text-sm text-[#94A3B8] leading-relaxed">
-                    {cs.desc}
-                  </p>
-
-                  <div className="mt-6 grid grid-cols-2 gap-4">
-                    {/* Before */}
-                    <div className="rounded-xl border border-red-500/20 bg-red-500/5 p-4">
-                      <p className="text-xs font-semibold text-red-400 uppercase tracking-wider mb-3">
-                        Before
-                      </p>
-                      {cs.before.map((b) => (
-                        <div key={b.label} className="mb-2 last:mb-0">
-                          <p className="text-xs text-[#94A3B8]">{b.label}</p>
-                          <p className="text-lg font-bold text-red-300">
-                            {b.value}
-                          </p>
-                        </div>
-                      ))}
+                <div className="mt-6 grid grid-cols-2 gap-4">
+                  <div className="rounded-2xl bg-red-50 border border-red-100 p-5">
+                    <p className="text-xs font-semibold text-red-500 uppercase tracking-wider mb-3">
+                      Before
+                    </p>
+                    <div className="space-y-2">
+                      <div>
+                        <p className="text-xs text-[#0F1629]/50">ROAS</p>
+                        <p className="text-lg font-bold text-red-600">{study.before.roas}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-[#0F1629]/50">CPL</p>
+                        <p className="text-lg font-bold text-red-600">{study.before.cpl}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-[#0F1629]/50">Ad Spend</p>
+                        <p className="text-lg font-bold text-red-600">{study.before.spend}</p>
+                      </div>
                     </div>
+                  </div>
 
-                    {/* After */}
-                    <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
-                      <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-3">
-                        After
-                      </p>
-                      {cs.after.map((a) => (
-                        <div key={a.label} className="mb-2 last:mb-0">
-                          <p className="text-xs text-[#94A3B8]">{a.label}</p>
-                          <p className="text-lg font-bold text-emerald-300">
-                            {a.value}
-                          </p>
-                        </div>
-                      ))}
+                  <div className="rounded-2xl bg-emerald-50 border border-emerald-100 p-5">
+                    <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-3">
+                      After
+                    </p>
+                    <div className="space-y-2">
+                      <div>
+                        <p className="text-xs text-[#0F1629]/50">ROAS</p>
+                        <p className="text-lg font-bold text-emerald-600">{study.after.roas}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-[#0F1629]/50">CPL</p>
+                        <p className="text-lg font-bold text-emerald-600">{study.after.cpl}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-[#0F1629]/50">Ad Spend</p>
+                        <p className="text-lg font-bold text-emerald-600">{study.after.spend}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </FadeUp>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {study.tags.map((tag) => (
+                    <span key={tag} className="pill pill-teal text-xs">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* ━━━ PROCESS ━━━ */}
-      <section id="process" className="py-24 px-6">
-        <div className="mx-auto max-w-6xl">
-          <FadeUp>
-            <p className="text-center text-xs font-medium tracking-widest uppercase text-[#8B5CF6] mb-3">
-              How It Works
-            </p>
-            <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-bold">
+      {/* Process */}
+      <section id="process" className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeUp} custom={0} className="mb-16 text-center">
+            <span className="pill pill-green mb-4 inline-block">How It Works</span>
+            <h2 className="font-heading text-4xl font-bold text-[#0F1629] md:text-5xl">
               The Process
             </h2>
-          </FadeUp>
+          </motion.div>
 
-          <StaggerContainer className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {processSteps.map((s) => (
-              <StaggerItem key={s.step}>
-                <div
-                  className={`${glass} ${glassHover} relative p-7 h-full flex flex-col`}
-                >
-                  <span className="text-5xl font-extrabold bg-gradient-to-b from-white/20 to-transparent bg-clip-text text-transparent leading-none">
-                    {s.step}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                step: "01",
+                title: "Audit",
+                desc: "Deep-dive into your ad accounts, tracking, funnels, and analytics to find leaks and quick wins.",
+              },
+              {
+                step: "02",
+                title: "Architecture",
+                desc: "Design the conversion system — tracking stack, funnel flow, campaign structure, and attribution model.",
+              },
+              {
+                step: "03",
+                title: "Launch",
+                desc: "Deploy campaigns, implement tracking, build funnels, and start driving qualified traffic.",
+              },
+              {
+                step: "04",
+                title: "Scale",
+                desc: "Optimize with real data. Scale spend on winners, kill losers, and compound growth week over week.",
+              },
+            ].map((step, i) => (
+              <motion.div
+                key={step.step}
+                variants={fadeUp}
+                custom={i + 1}
+                className="glass-card rounded-3xl p-8 relative"
+              >
+                <span className="font-heading text-6xl font-extrabold text-[#0F1629]/5 absolute top-4 right-6">
+                  {step.step}
+                </span>
+                <div className="relative">
+                  <span className="pill pill-coral text-xs mb-4 inline-block">
+                    Step {step.step}
                   </span>
-                  <h3 className="mt-4 text-lg font-bold text-white">
-                    {s.title}
+                  <h3 className="font-heading text-xl font-bold text-[#0F1629]">
+                    {step.title}
                   </h3>
-                  <p className="mt-2 text-sm text-[#94A3B8] leading-relaxed">
-                    {s.desc}
+                  <p className="mt-3 text-[#0F1629]/60 leading-relaxed text-sm">
+                    {step.desc}
                   </p>
                 </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </section>
-
-      {/* ━━━ CTA ━━━ */}
-      <section id="book" className="py-24 px-6">
-        <div className="mx-auto max-w-3xl">
-          <FadeUp>
-            <div
-              className={`${glass} relative overflow-hidden px-8 py-16 sm:px-16 text-center`}
-            >
-              {/* Big glow */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-[-40%] left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-gradient-to-br from-[#4F9EFF]/15 to-[#8B5CF6]/15 blur-[100px]" />
-              </div>
-
-              <div className="relative z-10">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-                  Ready to{" "}
-                  <span className="bg-gradient-to-r from-[#4F9EFF] to-[#8B5CF6] bg-clip-text text-transparent">
-                    Scale?
-                  </span>
-                </h2>
-                <p className="mx-auto mt-4 max-w-lg text-[#94A3B8]">
-                  Book a free audit and I&apos;ll break down exactly where
-                  you&apos;re leaking revenue — and how to fix it.
-                </p>
-                <a
-                  href="https://calendly.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-8 inline-flex items-center rounded-full bg-gradient-to-r from-[#4F9EFF] to-[#8B5CF6] px-10 py-4 text-base font-semibold text-white shadow-[0_0_40px_rgba(79,158,255,0.3)] hover:shadow-[0_0_60px_rgba(79,158,255,0.5)] hover:scale-105 transition-all"
-                >
-                  Book a Free Audit
-                </a>
-              </div>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ━━━ FOOTER ━━━ */}
-      <footer className="border-t border-white/[0.06] py-12 px-6">
-        <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-6">
-          <a
-            href="#"
-            className="font-[var(--font-heading)] text-lg font-bold tracking-tight bg-gradient-to-r from-[#4F9EFF] to-[#8B5CF6] bg-clip-text text-transparent"
-          >
-            Vyzantmedia
-          </a>
-          <div className="flex items-center gap-6 text-sm text-[#94A3B8]">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="hover:text-white transition-colors"
-              >
-                {link.label}
-              </a>
+              </motion.div>
             ))}
           </div>
-          <p className="text-xs text-[#64748B]">
+        </motion.div>
+      </section>
+
+      {/* CTA */}
+      <section id="book" className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div
+            variants={fadeUp}
+            custom={0}
+            className="glass-card rounded-[2.5rem] p-10 md:p-16 text-center relative overflow-hidden"
+          >
+            <div
+              className="gradient-orb absolute -top-[30%] left-1/2 -translate-x-1/2 h-[400px] w-[600px] opacity-40"
+              style={{ "--orb-color": "#FF9F50" } as React.CSSProperties}
+            />
+            <div className="relative z-10">
+              <h2 className="font-heading text-4xl font-bold text-[#0F1629] md:text-5xl lg:text-6xl">
+                Ready to{" "}
+                <span className="gradient-text">Scale?</span>
+              </h2>
+              <p className="mx-auto mt-5 max-w-lg text-lg text-[#0F1629]/60">
+                Book a free audit and I&apos;ll show you exactly where you&apos;re
+                leaking revenue — and how to fix it in 30 days.
+              </p>
+              <button className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[#FF7F50] px-10 py-4 text-base font-semibold text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-orange-200">
+                Book a Free Audit
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-[#0F1629]/5 py-12 px-6">
+        <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-6">
+          <Link href="/" className="font-heading text-lg font-bold text-[#0F1629]">
+            Vyzantmedia
+          </Link>
+          <div className="flex items-center gap-6 text-sm text-[#0F1629]/60">
+            {["Services", "Results", "Case Studies", "Process"].map((item) => (
+              <Link
+                key={item}
+                href={`#${item.toLowerCase().replace(" ", "-")}`}
+                className="hover:text-[#0F1629] transition-colors"
+              >
+                {item}
+              </Link>
+            ))}
+          </div>
+          <p className="text-xs text-[#0F1629]/40">
             &copy; {new Date().getFullYear()} Vyzantmedia. All rights reserved.
           </p>
         </div>
       </footer>
-    </>
+    </main>
   );
 }
-
-/* footer nav links (duplicated here for the server component) */
-const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Results", href: "#results" },
-  { label: "Case Studies", href: "#case-studies" },
-  { label: "Process", href: "#process" },
-];

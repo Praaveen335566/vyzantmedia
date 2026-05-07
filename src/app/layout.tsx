@@ -3,21 +3,22 @@ import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
 
 const syne = Syne({
-  variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-syne",
+  display: "swap",
 });
 
 const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
   subsets: ["latin"],
+  variable: "--font-dm-sans",
+  display: "swap",
   weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "Vyzantmedia — Performance Marketing That Scales",
   description:
-    "We build conversion systems that scale. Performance marketing, tracking, attribution, funnel architecture, and automation.",
+    "We build conversion systems, paid advertising funnels, and tracking infrastructure for D2C brands and SaaS companies.",
 };
 
 export default function RootLayout({
@@ -26,11 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${syne.variable} ${dmSans.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
+      <body className="font-body antialiased">{children}</body>
     </html>
   );
 }
