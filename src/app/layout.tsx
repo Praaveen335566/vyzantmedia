@@ -16,19 +16,33 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Vyzantmedia — Performance Marketing That Scales",
+  title: "Vyzantmedia — AI-Powered Performance Marketing Agency",
   description:
-    "We build conversion systems, paid advertising funnels, and tracking infrastructure for D2C brands and SaaS companies.",
+    "We replace 3 hires with AI agents. Performance marketing automation for Google Ads, Meta Ads, and UGC creative at scale.",
+  keywords: [
+    "performance marketing",
+    "AI automation",
+    "Google Ads automation",
+    "Meta Ads automation",
+    "n8n workflows",
+    "marketing agency India",
+  ],
+  authors: [{ name: "Praveen Kr Pandey" }],
+  openGraph: {
+    title: "Vyzantmedia — AI-Powered Performance Marketing",
+    description: "Replace your marketing team with AI agents. 5 years of performance marketing + Agentic AI + n8n automation.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
-      <body className="font-body antialiased">{children}</body>
+      <body className="font-body antialiased bg-[#0a0a0a] text-white">
+        {children}
+      </body>
     </html>
   );
 }
