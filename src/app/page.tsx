@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Zap,
@@ -13,41 +13,55 @@ import {
   Mail,
   Phone,
   MapPin,
+  ChevronRight,
+  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 
-const fadeUp: Variants = {
+const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      delay: i * 0.12,
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-    },
+    transition: { delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };
 
-const staggerContainer: Variants = {
+const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
   },
 };
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#0a0a0a] text-white overflow-hidden">
+    <main className="relative min-h-screen bg-[#FAF8F5] text-[#0F1629] overflow-hidden">
+      {/* Floating Gradient Orbs - Niva Style */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div
+          className="absolute -top-[20%] -left-[10%] h-[600px] w-[600px] rounded-full opacity-30 blur-[100px]"
+          style={{ background: "radial-gradient(circle, #ff9f50 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute top-[40%] -right-[15%] h-[500px] w-[500px] rounded-full opacity-20 blur-[100px]"
+          style={{ background: "radial-gradient(circle, #4a90ff 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute -bottom-[10%] left-[20%] h-[400px] w-[400px] rounded-full opacity-20 blur-[100px]"
+          style={{ background: "radial-gradient(circle, #ffd93d 0%, transparent 70%)" }}
+        />
+      </div>
+
       {/* Navbar */}
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 section-padding py-5"
+        className="relative z-50 section-padding py-5"
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between rounded-full bg-white/5 backdrop-blur-xl border border-white/10 px-6 py-3">
+        <div className="max-w-7xl mx-auto flex items-center justify-between rounded-full bg-white/70 backdrop-blur-xl border border-white/60 px-6 py-3 shadow-sm">
           <Link href="/" className="font-heading text-xl font-bold tracking-tight">
             Vyzant<span className="text-[#ff6b35]">media</span>
           </Link>
@@ -56,7 +70,7 @@ export default function Home() {
               <Link
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-sm font-medium text-white/60 hover:text-white transition-colors"
+                className="text-sm font-medium text-[#0F1629]/60 hover:text-[#0F1629] transition-colors"
               >
                 {item}
               </Link>
@@ -64,102 +78,115 @@ export default function Home() {
           </div>
           <Link
             href="#contact"
-            className="rounded-full bg-[#ff6b35] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#ff6b35]/90 transition-all hover:scale-105"
+            className="rounded-full bg-[#0F1629] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#0F1629]/90 transition-all hover:scale-105"
           >
             Book Free Audit
           </Link>
         </div>
       </motion.nav>
 
-      {/* Hero Section */}
-      <section className="relative section-padding pt-32 pb-20 md:pt-40 md:pb-28">
+      {/* Hero Section - Digitaly Style */}
+      <section className="relative z-10 section-padding pt-16 pb-12 md:pt-24 md:pb-16">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
-            className="grid lg:grid-cols-2 gap-12 items-center"
           >
-            <div>
-              <motion.div variants={fadeUp} custom={0} className="mb-6 flex gap-3">
-                <span className="pill-orange">Performance Marketing</span>
-                <span className="pill-blue">Agentic AI</span>
-              </motion.div>
+            {/* Top Badge Row */}
+            <motion.div variants={fadeUp} custom={0} className="mb-8 flex flex-wrap gap-3">
+              <span className="pill-orange">Performance Marketing</span>
+              <span className="pill-blue">Agentic AI</span>
+              <span className="pill-green">n8n Automation</span>
+            </motion.div>
 
-              <motion.h1
-                variants={fadeUp}
-                custom={1}
-                className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight"
-              >
-                Replace Your{" "}
-                <span className="text-gradient-orange">Marketing Team</span>
-                <br />
-                With <span className="text-gradient-blue">AI Agents</span>
-              </motion.h1>
+            {/* Main Headline - Digitaly Bold Style */}
+            <motion.h1
+              variants={fadeUp}
+              custom={1}
+              className="font-heading text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight max-w-4xl"
+            >
+              Replace Your{" "}
+              <span className="text-gradient">Marketing</span>
+              <br />
+              Team With{" "}
+              <span className="text-[#4A90FF]">AI Agents</span>
+            </motion.h1>
 
-              <motion.p
-                variants={fadeUp}
-                custom={2}
-                className="mt-8 text-lg md:text-xl text-white/50 max-w-lg leading-relaxed"
-              >
-                5 years of performance marketing expertise meets Agentic AI and n8n automation. We build autonomous systems that run Google Ads, Meta Ads, and UGC creative — while you sleep.
-              </motion.p>
-
-              <motion.div
-                variants={fadeUp}
-                custom={3}
-                className="mt-10 flex flex-col sm:flex-row gap-4"
-              >
-                <Link
-                  href="#contact"
-                  className="group inline-flex items-center gap-2 rounded-full bg-[#ff6b35] px-8 py-4 text-base font-semibold hover:bg-[#ff6b35]/90 transition-all hover:scale-105"
-                >
-                  Book Free Audit
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link
-                  href="#automation"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold hover:bg-white/10 transition-all"
-                >
-                  See Automation Stack
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Hero Visual - Automation Stack Preview */}
-            <motion.div
+            {/* Subheadline */}
+            <motion.p
               variants={fadeUp}
               custom={2}
-              className="relative"
+              className="mt-8 text-lg md:text-xl text-[#0F1629]/50 max-w-xl leading-relaxed"
             >
-              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#1a1a2e] to-[#16213e] border border-white/10 p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="h-3 w-3 rounded-full bg-red-500" />
-                  <div className="h-3 w-3 rounded-full bg-yellow-500" />
-                  <div className="h-3 w-3 rounded-full bg-green-500" />
-                  <span className="ml-2 text-xs text-white/40">vyzant_automation.n8n</span>
-                </div>
-                <div className="space-y-3">
-                  {[
-                    { label: "Client Intake", status: "Active", color: "bg-green-500" },
-                    { label: "AI Research Agent", status: "Running", color: "bg-blue-500" },
-                    { label: "Creative Generation", status: "Queued", color: "bg-yellow-500" },
-                    { label: "Campaign Builder", status: "Standby", color: "bg-white/20" },
-                    { label: "Performance Monitor", status: "Active", color: "bg-green-500" },
-                  ].map((item, i) => (
-                    <div key={item.label} className="flex items-center justify-between rounded-xl bg-white/5 p-3 border border-white/5">
-                      <div className="flex items-center gap-3">
-                        <div className={`h-2 w-2 rounded-full ${item.color}`} />
-                        <span className="text-sm font-medium">{item.label}</span>
-                      </div>
-                      <span className="text-xs text-white/40">{item.status}</span>
+              5 years of performance marketing expertise meets Agentic AI and n8n automation. We build autonomous systems that run Google Ads, Meta Ads, and UGC creative.
+            </motion.p>
+
+            {/* CTA Row */}
+            <motion.div
+              variants={fadeUp}
+              custom={3}
+              className="mt-10 flex flex-col sm:flex-row gap-4"
+            >
+              <Link
+                href="#contact"
+                className="group inline-flex items-center gap-2 rounded-full bg-[#ff6b35] px-8 py-4 text-base font-semibold text-white hover:bg-[#ff6b35]/90 transition-all hover:scale-105 shadow-lg shadow-orange-200"
+              >
+                Book Free Audit
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="#automation"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-[#0F1629]/10 bg-white/80 px-8 py-4 text-base font-semibold hover:bg-white transition-all"
+              >
+                See Automation Stack
+              </Link>
+            </motion.div>
+
+            {/* Hero Image / Visual - Digitaly Style Banner */}
+            <motion.div
+              variants={fadeUp}
+              custom={4}
+              className="mt-16 relative"
+            >
+              <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-[#1a1a2e] to-[#0f3460] p-8 md:p-12">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff6b35]/20 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#4a90ff]/20 rounded-full blur-3xl" />
+                
+                <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Sparkles className="h-5 w-5 text-[#ff6b35]" />
+                      <span className="text-white/60 text-sm font-medium">Live Automation Dashboard</span>
                     </div>
-                  ))}
-                </div>
-                <div className="mt-4 rounded-xl bg-[#ff6b35]/10 border border-[#ff6b35]/20 p-3">
-                  <div className="flex items-center gap-2">
-                    <Bot className="h-4 w-4 text-[#ff6b35]" />
-                    <span className="text-sm font-medium text-[#ff6b35]">Agent Status: 15 hrs saved this week</span>
+                    <h3 className="font-heading text-3xl md:text-4xl font-bold text-white mb-4">
+                      Your Campaigns Run Themselves
+                    </h3>
+                    <p className="text-white/60 mb-6">
+                      From client intake to creative generation to performance monitoring — fully autonomous.
+                    </p>
+                    <div className="flex gap-3">
+                      <span className="pill-orange text-xs">CrewAI</span>
+                      <span className="pill-blue text-xs">n8n</span>
+                      <span className="pill-green text-xs">Claude API</span>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    {[
+                      { label: "Client Intake", status: "Active", color: "bg-green-500" },
+                      { label: "AI Research Agent", status: "Running", color: "bg-blue-500" },
+                      { label: "Creative Generation", status: "Queued", color: "bg-yellow-500" },
+                      { label: "Campaign Builder", status: "Standby", color: "bg-white/30" },
+                      { label: "Performance Monitor", status: "Active", color: "bg-green-500" },
+                    ].map((item) => (
+                      <div key={item.label} className="flex items-center justify-between rounded-xl bg-white/10 backdrop-blur-sm p-3 border border-white/10">
+                        <div className="flex items-center gap-3">
+                          <div className={`h-2 w-2 rounded-full ${item.color}`} />
+                          <span className="text-sm font-medium text-white">{item.label}</span>
+                        </div>
+                        <span className="text-xs text-white/50">{item.status}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -168,39 +195,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="section-padding py-12 border-y border-white/5">
+      {/* Stats Bar - Digitaly Large Numbers */}
+      <section className="relative z-10 section-padding py-16">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={staggerContainer}
-          className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8"
+          className="max-w-7xl mx-auto"
         >
-          {[
-            { value: "35%", label: "CPL Reduction", sub: "Within 60 days" },
-            { value: "30%+", label: "ROI Improvement", sub: "Across campaigns" },
-            { value: "15hrs", label: "Weekly Saved", sub: "Via automation" },
-            { value: "₹4.2Cr+", label: "Ad Spend Managed", sub: "Last 12 months" },
-          ].map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              variants={fadeUp}
-              custom={i}
-              className="text-center"
-            >
-              <div className="font-heading text-4xl md:text-5xl font-bold text-gradient-orange">
-                {stat.value}
-              </div>
-              <div className="mt-2 text-sm font-semibold text-white/80">{stat.label}</div>
-              <div className="text-xs text-white/40">{stat.sub}</div>
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            {[
+              { value: "35%", label: "CPL Reduced", sub: "Within 60 days" },
+              { value: "30%+", label: "ROI Improved", sub: "Across campaigns" },
+              { value: "15hrs", label: "Weekly Saved", sub: "Via AI automation" },
+              { value: "4.2Cr", label: "Ad Spend Managed", sub: "Last 12 months" },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                variants={fadeUp}
+                custom={i}
+                className="text-center"
+              >
+                <div className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-[#0F1629]">
+                  {stat.value}
+                </div>
+                <div className="mt-2 text-sm font-bold text-[#0F1629]/80 uppercase tracking-wider">{stat.label}</div>
+                <div className="text-xs text-[#0F1629]/40 mt-1">{stat.sub}</div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="section-padding py-24">
+      {/* What We Deliver - Services */}
+      <section id="services" className="relative z-10 section-padding py-20">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -208,72 +237,83 @@ export default function Home() {
           variants={staggerContainer}
           className="max-w-7xl mx-auto"
         >
-          <motion.div variants={fadeUp} custom={0} className="mb-16">
-            <span className="pill-orange mb-4 inline-block">What We Deliver</span>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold max-w-xl">
-              Services Built for Scale
-            </h2>
+          <motion.div variants={fadeUp} custom={0} className="mb-12 flex items-end justify-between">
+            <div>
+              <span className="pill-orange mb-4 inline-block">What We Deliver</span>
+              <h2 className="font-heading text-4xl md:text-5xl font-bold">
+                Services Built<br />For Scale
+              </h2>
+            </div>
+            <Link href="#contact" className="hidden md:flex items-center gap-2 text-sm font-semibold text-[#ff6b35] hover:gap-3 transition-all">
+              View All Services <ChevronRight className="h-4 w-4" />
+            </Link>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
               {
                 icon: Target,
                 title: "Google Ads Automation",
                 desc: "Autonomous campaign management with AI-driven bidding, keyword expansion, and real-time budget reallocation.",
-                color: "text-[#ff6b35]",
-                bg: "bg-[#ff6b35]/10",
+                color: "bg-[#ff6b35]",
+                textColor: "text-white",
+                bg: "bg-[#ff6b35]",
               },
               {
                 icon: Zap,
                 title: "Meta Ads Automation",
                 desc: "AI agents for audience research, creative testing, and automated scaling — from intake to launch.",
-                color: "text-[#4a90ff]",
-                bg: "bg-[#4a90ff]/10",
+                color: "bg-[#4A90FF]",
+                textColor: "text-white",
+                bg: "bg-[#4A90FF]",
               },
               {
                 icon: Layers,
                 title: "UGC Creative Automation",
                 desc: "Persona-centric content generation with sentiment analysis. AI drafts, you approve, we scale.",
-                color: "text-[#22c55e]",
-                bg: "bg-[#22c55e]/10",
+                color: "bg-[#22c55e]",
+                textColor: "text-white",
+                bg: "bg-[#22c55e]",
               },
               {
                 icon: BarChart3,
                 title: "Funnel Architecture",
                 desc: "High-converting landing pages, upsell flows, and checkout optimization for maximum AOV.",
-                color: "text-[#a855f7]",
-                bg: "bg-[#a855f7]/10",
+                color: "bg-[#a855f7]",
+                textColor: "text-white",
+                bg: "bg-[#a855f7]",
               },
               {
                 icon: TrendingUp,
                 title: "Tracking & Attribution",
                 desc: "Server-side GTM, GA4, Consent Mode v2, and multi-touch attribution that actually works.",
-                color: "text-[#f59e0b]",
-                bg: "bg-[#f59e0b]/10",
+                color: "bg-[#f59e0b]",
+                textColor: "text-white",
+                bg: "bg-[#f59e0b]",
               },
               {
                 icon: Workflow,
                 title: "Analytics & Dashboards",
                 desc: "Custom Looker Studio dashboards and real-time reporting so you always know your numbers.",
-                color: "text-[#ec4899]",
-                bg: "bg-[#ec4899]/10",
+                color: "bg-[#ec4899]",
+                textColor: "text-white",
+                bg: "bg-[#ec4899]",
               },
             ].map((service, i) => (
               <motion.div
                 key={service.title}
                 variants={fadeUp}
                 custom={i + 1}
-                whileHover={{ y: -4 }}
-                className="card-dark p-8 hover:border-white/20 transition-all group"
+                whileHover={{ y: -6, scale: 1.02 }}
+                className="group rounded-3xl bg-white p-8 border border-[#0F1629]/5 hover:border-[#0F1629]/10 hover:shadow-xl transition-all"
               >
-                <div className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl ${service.bg} ${service.color} mb-6`}>
+                <div className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl ${service.bg} ${service.textColor} mb-6`}>
                   <service.icon className="h-6 w-6" />
                 </div>
                 <h3 className="font-heading text-xl font-bold mb-3 group-hover:text-[#ff6b35] transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-white/50 text-sm leading-relaxed">
+                <p className="text-[#0F1629]/50 text-sm leading-relaxed">
                   {service.desc}
                 </p>
               </motion.div>
@@ -282,8 +322,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Automation Stack Section */}
-      <section id="automation" className="section-padding py-24 bg-[#080808]">
+      {/* Selected Works - Case Studies (Digitaly Colorful Cards) */}
+      <section id="case-studies" className="relative z-10 section-padding py-20">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -291,17 +331,100 @@ export default function Home() {
           variants={staggerContainer}
           className="max-w-7xl mx-auto"
         >
-          <motion.div variants={fadeUp} custom={0} className="mb-16 text-center">
-            <span className="pill-blue mb-4 inline-block">The Stack</span>
+          <motion.div variants={fadeUp} custom={0} className="mb-12">
+            <span className="pill-blue mb-4 inline-block">Selected Works</span>
             <h2 className="font-heading text-4xl md:text-5xl font-bold">
-              How The Automation Works
+              Results That<br />Speak
             </h2>
-            <p className="mt-4 text-white/50 max-w-2xl mx-auto">
-              From client intake to campaign launch to performance monitoring — fully autonomous.
-            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* Card 1 - Blue */}
+            <motion.div
+              variants={fadeUp}
+              custom={1}
+              whileHover={{ y: -6 }}
+              className="rounded-3xl bg-[#4A90FF] p-8 text-white relative overflow-hidden group min-h-[320px] flex flex-col justify-between"
+            >
+              <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div>
+                <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-medium mb-4">Meta Ads</span>
+                <h3 className="font-heading text-2xl font-bold mb-2">D2C Skincare</h3>
+                <p className="text-white/70 text-sm">Beauty & Personal Care</p>
+              </div>
+              <div>
+                <p className="text-xs text-white/60 uppercase tracking-wider mb-1">ROAS Improvement</p>
+                <p className="font-heading text-5xl font-bold">6.2x</p>
+                <p className="text-sm text-white/70 mt-1">From 1.8x to 6.2x in 90 days</p>
+              </div>
+            </motion.div>
+
+            {/* Card 2 - Orange */}
+            <motion.div
+              variants={fadeUp}
+              custom={2}
+              whileHover={{ y: -6 }}
+              className="rounded-3xl bg-[#ff6b35] p-8 text-white relative overflow-hidden group min-h-[320px] flex flex-col justify-between"
+            >
+              <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div>
+                <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-medium mb-4">Google Ads</span>
+                <h3 className="font-heading text-2xl font-bold mb-2">Real Estate</h3>
+                <p className="text-white/70 text-sm">Property Developer</p>
+              </div>
+              <div>
+                <p className="text-xs text-white/60 uppercase tracking-wider mb-1">CPL Reduction</p>
+                <p className="font-heading text-5xl font-bold">35%</p>
+                <p className="text-sm text-white/70 mt-1">From ₹420 to ₹145 per lead</p>
+              </div>
+            </motion.div>
+
+            {/* Card 3 - Yellow/Gold */}
+            <motion.div
+              variants={fadeUp}
+              custom={3}
+              whileHover={{ y: -6 }}
+              className="rounded-3xl bg-[#D4A017] p-8 text-white relative overflow-hidden group min-h-[320px] flex flex-col justify-between"
+            >
+              <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+              <div>
+                <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-medium mb-4">Automation</span>
+                <h3 className="font-heading text-2xl font-bold mb-2">EdTech Platform</h3>
+                <p className="text-white/70 text-sm">Education & SaaS</p>
+              </div>
+              <div>
+                <p className="text-xs text-white/60 uppercase tracking-wider mb-1">Time Saved</p>
+                <p className="font-heading text-5xl font-bold">15hrs</p>
+                <p className="text-sm text-white/70 mt-1">Weekly via n8n + CrewAI</p>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Automation Stack - Dark Section (Digitaly "Awarded Works" style) */}
+      <section id="automation" className="relative z-10 section-padding py-20 bg-[#0F1629] text-white">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="max-w-7xl mx-auto"
+        >
+          <motion.div variants={fadeUp} custom={0} className="mb-12 flex items-end justify-between">
+            <div>
+              <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-white/10 text-white/80 border border-white/10 mb-4">The Stack</span>
+              <h2 className="font-heading text-4xl md:text-5xl font-bold">
+                How The<br />Automation Works
+              </h2>
+            </div>
+            <div className="hidden md:flex items-center gap-2 text-sm text-white/50">
+              <Bot className="h-4 w-4" />
+              <span>Powered by n8n + CrewAI</span>
+            </div>
+          </motion.div>
+
+          <div className="space-y-4">
             {[
               {
                 step: "01",
@@ -333,98 +456,64 @@ export default function Home() {
                 desc: "Anomaly detection, creative fatigue alerts, auto-scaling winners",
                 tools: "n8n, Slack, Looker Studio",
               },
-              {
-                step: "06",
-                title: "Auto-Reporting",
-                desc: "Weekly PDF reports + live client dashboard via Claude + n8n",
-                tools: "Claude, n8n, Gmail",
-              },
             ].map((item, i) => (
               <motion.div
                 key={item.step}
                 variants={fadeUp}
                 custom={i + 1}
-                className="card-dark p-6 relative overflow-hidden group hover:border-[#ff6b35]/30 transition-all"
+                className="group flex items-center gap-6 rounded-2xl bg-white/5 border border-white/10 p-6 hover:bg-white/10 transition-all cursor-pointer"
               >
-                <span className="absolute top-4 right-4 font-heading text-5xl font-bold text-white/5 group-hover:text-[#ff6b35]/10 transition-colors">
+                <span className="font-heading text-4xl font-bold text-white/10 group-hover:text-[#ff6b35]/30 transition-colors">
                   {item.step}
                 </span>
-                <div className="pill-green text-xs mb-4 inline-block">{item.tools}</div>
-                <h3 className="font-heading text-lg font-bold mb-2">{item.title}</h3>
-                <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-1">
+                    <h3 className="font-heading text-lg font-bold">{item.title}</h3>
+                    <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-white/10 text-xs text-white/60">
+                      {item.tools}
+                    </span>
+                  </div>
+                  <p className="text-white/50 text-sm">{item.desc}</p>
+                </div>
+                <ChevronRight className="h-5 w-5 text-white/20 group-hover:text-[#ff6b35] group-hover:translate-x-1 transition-all" />
               </motion.div>
             ))}
           </div>
         </motion.div>
       </section>
 
-      {/* Case Studies */}
-      <section id="case-studies" className="section-padding py-24">
+      {/* Happy Clients / Logos */}
+      <section className="relative z-10 section-padding py-16">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true }}
           variants={staggerContainer}
-          className="max-w-7xl mx-auto"
+          className="max-w-7xl mx-auto text-center"
         >
-          <motion.div variants={fadeUp} custom={0} className="mb-16">
-            <span className="pill-orange mb-4 inline-block">Selected Works</span>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold">
-              Results That Speak
+          <motion.div variants={fadeUp} custom={0}>
+            <span className="pill-green mb-6 inline-block">Trusted By</span>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-12">
+              Industries We Serve
             </h2>
           </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              {
-                client: "D2C Skincare Brand",
-                industry: "Beauty & Personal Care",
-                result: "6.2x ROAS",
-                metric: "From 1.8x to 6.2x in 90 days",
-                tags: ["Meta Ads", "Funnel Rebuild", "Tracking"],
-                color: "from-[#ff6b35] to-[#f7931e]",
-              },
-              {
-                client: "Real Estate Developer",
-                industry: "Real Estate",
-                result: "35% CPL ↓",
-                metric: "CPL reduced from ₹420 to ₹145",
-                tags: ["Google Ads", "Automation", "CRM"],
-                color: "from-[#4a90ff] to-[#6b8cff]",
-              },
-            ].map((study, i) => (
-              <motion.div
-                key={study.client}
-                variants={fadeUp}
-                custom={i + 1}
-                className="card-dark p-8 relative overflow-hidden group"
-              >
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${study.color}`} />
-                <div className="flex items-center gap-3 mb-4">
-                  {study.tags.map((tag) => (
-                    <span key={tag} className="pill-blue text-xs">{tag}</span>
-                  ))}
-                </div>
-                <h3 className="font-heading text-2xl font-bold mb-1">{study.client}</h3>
-                <p className="text-white/40 text-sm mb-6">{study.industry}</p>
-                
-                <div className="flex items-end gap-4">
-                  <div>
-                    <p className="text-xs text-white/40 uppercase tracking-wider mb-1">Result</p>
-                    <p className={`font-heading text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${study.color}`}>
-                      {study.result}
-                    </p>
-                  </div>
-                  <p className="text-white/60 text-sm pb-2">{study.metric}</p>
-                </div>
-              </motion.div>
+          
+          <motion.div
+            variants={fadeUp}
+            custom={1}
+            className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-40"
+          >
+            {["Real Estate", "Education", "Automotive", "E-Commerce", "SaaS", "D2C"].map((industry) => (
+              <span key={industry} className="font-heading text-xl md:text-2xl font-bold text-[#0F1629]/30">
+                {industry}
+              </span>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* CTA Section */}
-      <section id="contact" className="section-padding py-24">
+      {/* CTA Section - Digitaly Style */}
+      <section id="contact" className="relative z-10 section-padding py-20">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -435,29 +524,29 @@ export default function Home() {
           <motion.div
             variants={fadeUp}
             custom={0}
-            className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] p-12 md:p-16 text-center border border-white/10"
+            className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#ff6b35] via-[#f7931e] to-[#4A90FF] p-12 md:p-16 text-center"
           >
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff6b35]/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#4a90ff]/10 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
             
             <div className="relative z-10">
-              <h2 className="font-heading text-4xl md:text-6xl font-bold mb-6">
-                Ready to <span className="text-gradient-orange">Automate</span>?
+              <h2 className="font-heading text-4xl md:text-6xl font-bold text-white mb-6">
+                Ready to Start<br />a Project?
               </h2>
-              <p className="text-white/60 text-lg max-w-xl mx-auto mb-10">
+              <p className="text-white/80 text-lg max-w-xl mx-auto mb-10">
                 Book a free 30-minute audit. We'll map your current setup and show you exactly where AI agents can replace manual work.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="mailto:vyzantmarketing@gmail.com?subject=Free%20Audit%20Request"
-                  className="group inline-flex items-center gap-2 rounded-full bg-[#ff6b35] px-10 py-4 text-base font-semibold hover:bg-[#ff6b35]/90 transition-all hover:scale-105"
+                  className="group inline-flex items-center gap-2 rounded-full bg-white px-10 py-4 text-base font-semibold text-[#0F1629] hover:bg-white/90 transition-all hover:scale-105 shadow-xl"
                 >
                   Book Free Audit
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="#automation"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-10 py-4 text-base font-semibold hover:bg-white/10 transition-all"
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-white/30 bg-white/10 px-10 py-4 text-base font-semibold text-white hover:bg-white/20 transition-all"
                 >
                   Explore Stack
                 </Link>
@@ -468,7 +557,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="section-padding py-16 border-t border-white/5 bg-[#080808]">
+      <footer className="relative z-10 section-padding py-16 bg-[#0F1629] text-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="md:col-span-2">
@@ -495,7 +584,7 @@ export default function Home() {
             </div>
 
             <div>
-              <h4 className="font-heading text-sm font-bold uppercase tracking-wider mb-4">Services</h4>
+              <h4 className="font-heading text-sm font-bold uppercase tracking-wider mb-4 text-white/80">Services</h4>
               <ul className="space-y-3">
                 {["Google Ads Automation", "Meta Ads Automation", "UGC Creative", "Funnel Architecture", "Tracking & Attribution"].map((item) => (
                   <li key={item}>
@@ -508,7 +597,7 @@ export default function Home() {
             </div>
 
             <div>
-              <h4 className="font-heading text-sm font-bold uppercase tracking-wider mb-4">Company</h4>
+              <h4 className="font-heading text-sm font-bold uppercase tracking-wider mb-4 text-white/80">Company</h4>
               <ul className="space-y-3">
                 {[
                   { label: "About", href: "#" },
@@ -527,7 +616,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/10">
             <p className="text-xs text-white/30">
               © {new Date().getFullYear()} Vyzantmedia. All rights reserved.
             </p>
